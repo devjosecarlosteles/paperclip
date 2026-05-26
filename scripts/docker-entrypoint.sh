@@ -24,6 +24,9 @@ fi
 
 if [ "$changed" = "1" ]; then
     chown -R node:node /paperclip
+else
+    # Always ensure /paperclip is writable by node (Railway volume mounts are root-owned)
+    chown node:node /paperclip
 fi
 
 exec gosu node "$@"
